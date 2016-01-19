@@ -22,5 +22,5 @@ compileJava.options.encoding = 'UTF-8'
 
 dependencies {
     compile 'commons-codec:commons-codec:1.10'
-    compile project(':subproj')
+    //compile project(':subproj')
 }
