@@ -1,0 +1,25 @@
+This project demonstrates a bug in IntelliJ where it picks up the
+wrong version of a dependency.
+
+I imported the project into IntelliJ by selecting "Import Project" and
+then importing the root's build.gradle file.
+
+The root project depends on Apache commons-codec 1.10 and uses a
+method not present in 1.3.
+
+The subproject depends on a Google HTTP library that depends on Apache
+commons-codec 1.3.
+
+IntelliJ believes there is an error in the root project's
+org.example.UsingBase64.java because it uses a method not present in
+commons-codec 1.3. If you have IntelliJ show javadoc about the Base64
+class, it says it's coming from "Gradle:
+commons-codec:commons-codec:1.3".
+
+Running `gradle build` on the command line still succeeds.
+
+Furthermore, one can elminate the error in IntelliJ by going into
+subproj/build.gradle and commenting out the dependency on the Google
+HTTP library (though I had to close the project and reimport it for
+the change to occur). After doing this, getting javadoc for the Base64
+class shows that IntelliJ realizes it's using 1.10.
